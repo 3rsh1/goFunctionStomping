@@ -76,3 +76,27 @@ func ProcGetModuleFileNameExW(hProcess w32.HANDLE, hModule w32.HMODULE, lpFileNa
 	isSuccessGetModule, _, _ := GetModuleFileNameExW.Call(uintptr(hProcess), uintptr(hModule), uintptr(unsafe.Pointer(lpFileName)), uintptr(size))
 	return uint32(isSuccessGetModule)
 }
+
+func ProcWriteProcessMemory(hProcess w32.HANDLE, lpBaseAddress uintptr, data []byte, size uint) (err error) {
+	var numBytesRead uintptr
+
+	_, _, err = WriteProcessMemory.Call(uintptr(hProcess),
+		uintptr(lpBaseAddress),
+		uintptr(unsafe.Pointer(&data[0])),
+		uintptr(size),
+		uintptr(unsafe.Pointer(&numBytesRead)))
+	if !IsErrSuccess(err) {
+		return
+	}
+	err = nil
+	return
+}
+
+func IsErrSuccess(err error) bool {
+	if errno, ok := err.(syscall.Errno); ok {
+		if errno == 0 {
+			return true
+		}
+	}
+	return false
+}
