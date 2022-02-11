@@ -3,6 +3,7 @@ package winApi
 import (
 	"github.com/JamesHovious/w32"
 	"unsafe"
+	"syscall"
 )
 
 func ProcSetFileInformationByHandle(fileHandle w32.HANDLE, FileInformationClass1 FileInformationClass, fileInformation *FILE_DISPOSITION_INFO, bufferSize w32.DWORD) bool {
