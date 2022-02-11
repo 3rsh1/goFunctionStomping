@@ -10,6 +10,7 @@ var (
 	SetFileInformationByHandle = kernel32.MustFindProc("SetFileInformationByHandle")
 	OpenProcess                = kernel32.MustFindProc("OpenProcess")
 	VirtualProtectEx           = kernel32.MustFindProc("VirtualProtectEx")
+	WriteProcessMemory         = kernel32.MustFindProc("WriteProcessMemory")
 )
 
 var (
